@@ -9,7 +9,7 @@ This Turborepo includes the following packages/apps:
 ### Apps and Packages
 
 - `extension`: a [Plasmo](https://www.plasmo.com/) extension
-- `@modcast/ui`: a React component library shared by both `server` and `extension` applications
+- `@modcast/ui`: a React component library shared by applications (currently just `extension`)
 - `@modcast/eslint-config`: `eslint` configurations (includes `eslint-config-turbo` and `eslint-config-prettier`)
 - `@modcast/typescript-config`: `tsconfig.json`s used throughout the monorepo
 
