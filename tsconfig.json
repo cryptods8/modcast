@@ -1,0 +1,3 @@
+{
+  "extends": "@modcast/typescript-config/base.json"
+}

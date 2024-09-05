@@ -1,0 +1,49 @@
+export function ModcastIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="100%"
+      height="100%"
+      viewBox="0 0 512 512"
+      fill="none">
+      <g clipPath="url(#a)">
+        {/* <mask
+          id="b"
+          width="512"
+          height="512"
+          x="0"
+          y="0"
+          maskUnits="userSpaceOnUse"
+          style={{ maskType: "luminance" }}>
+          <path fill="#fff" d="M511.842 512H0V.158h511.842V512Z" />
+        </mask> */}
+        <g>
+          {/* mask="url(#b)"> */}
+          <path
+            fill="url(#c)"
+            d="M385.116.159H126.724C56.849.159 0 57.003 0 126.882v258.39c0 69.877 56.849 126.726 126.724 126.726h258.392c69.877 0 126.726-56.849 126.726-126.726v-258.39c0-69.88-56.849-126.723-126.726-126.723Z"
+          />
+          <path
+            fill="#fff"
+            d="m335.853 350.016-25.238-94.783-25.32 94.783h-58.269l-25.563-95.481-25.478 95.481h-66.367l61.67-209.565h57.255l27.379 97.314 27.377-97.314h57.379l61.534 209.565h-66.359Z"
+          />
+        </g>
+      </g>
+      <defs>
+        <linearGradient
+          id="c"
+          x1="255.921"
+          x2="255.921"
+          y1="511.998"
+          y2=".159"
+          gradientUnits="userSpaceOnUse">
+          <stop stopColor="#8B5CF6" />
+          <stop offset="1" stopColor="#472A91" />
+        </linearGradient>
+        <clipPath id="a">
+          <path fill="#fff" d="M0 512h512V0H0z" />
+        </clipPath>
+      </defs>
+    </svg>
+  )
+}

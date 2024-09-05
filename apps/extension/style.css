@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* #plasmo-shadow-container {
+  z-index: 0 !important;
+} */
+
+.text-muted {
+  color: #546473;
+}
+
+.text-default {
+  color: #24292e;
+}
+.border-default {
+  border-color: #d0d1d259;
+}
+.bg-input {
+  background-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  .text-default {
+    color: #fff;
+  }
+  .text-muted {
+    color: #8b99a4;
+  }
+  .bg-input {
+    background-color: #17101f;
+  }
+  .border-default {
+    border-color: #4c3a4ec0;
+  }
+}
+
+.hover-card-content {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.hover-card-content[data-side="top"] {
+  animation-name: slideDownAndFade;
+}
+.hover-card-content[data-side="right"] {
+  animation-name: slideLeftAndFade;
+}
+.hover-card-content[data-side="bottom"] {
+  animation-name: slideUpAndFade;
+}
+.hover-card-content[data-side="left"] {
+  animation-name: slideRightAndFade;
+}
+.bg-action-primary {
+  background-color: #7c65c1;
+}
+
+@keyframes slideUpAndFade {
+  0% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRightAndFade {
+  0% {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDownAndFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeftAndFade {
+  0% {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
