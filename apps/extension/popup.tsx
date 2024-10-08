@@ -1,7 +1,7 @@
 import { useFarcasterIdentity } from "~hooks/use-farcaster-identity"
 
 import "./style.css"
-import "~contents/inter-font.css"
+import "./fonts.css"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
