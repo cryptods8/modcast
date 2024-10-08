@@ -1,41 +1,9 @@
-import cssText from "data-text:~style.css"
-import type {
-  PlasmoCSConfig,
-  PlasmoGetInlineAnchorList,
-  PlasmoRender
-} from "plasmo"
 import { useState } from "react"
-import { createRoot } from "react-dom/client"
 
 import FrameIFrame from "~components/frame-iframe"
-import { LoadingIndicator } from "~components/loading-indicator"
 import { SheetStack } from "~components/sheets"
+import { SidePanelContainer } from "~components/side-panel-container"
 import { useFramesStorage } from "~hooks/use-frames-storage"
-import { useStateStorage } from "~hooks/use-state-storage"
-import { determineTheme } from "~utils/determine-theme"
-
-export const config: PlasmoCSConfig = {
-  matches: ["https://warpcast.com/*"],
-  css: ["inter-font.css"]
-}
-
-export const getStyle = () => {
-  const style = document.createElement("style")
-  style.textContent = cssText
-  return style
-}
-
-const selectors = [
-  "#root > div > div > div > aside.h-full > div.w-full > form"
-] as const
-
-export const getInlineAnchorList: PlasmoGetInlineAnchorList = async () => {
-  const fullSelectors = selectors.join(", ")
-  const anchors = document.querySelectorAll(fullSelectors)
-  return Array.from(anchors).map((element) => ({
-    element
-  }))
-}
 
 interface FrameWrapperProps {
   url: string
@@ -66,9 +34,6 @@ const FrameWrapper = (props: FrameWrapperProps) => {
   return (
     <div data-framewrapperurl={url} className={`w-full flex flex-col`}>
       <div onClick={(e) => e.preventDefault()}>
-        {/* <div className="w-full h-full aspect-video bg-gray-500 rounded-lg flex items-center justify-center">
-          <span className="text-sm text-gray-700 line-clamp-1">{url}</span>
-        </div> */}
         <FrameIFrame url={url} frameId={frameId} theme={theme} />
       </div>
     </div>
@@ -116,7 +81,7 @@ const FrameInput = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
   )
 }
 
-const FramesContainer = ({ theme }: { theme: "dark" | "light" }) => {
+export function FramesContainer({ theme }: { theme: "dark" | "light" }) {
   const [editMode, setEditMode] = useState(false)
   const [keys, setKeys] = useState<Record<string, string>>({})
   const { activeIndex, setActiveIndex, urls, addUrl, removeUrl, isLoading } =
@@ -125,15 +90,11 @@ const FramesContainer = ({ theme }: { theme: "dark" | "light" }) => {
     return null
   }
   return (
-    <div className="w-full mt-3 rounded-lg px-2 py-3 pt-1.5 bg-black/[.04] dark:bg-white/[.04]">
-      <div className="flex gap-3 justify-between items-center px-2">
-        <div className="py-1 text-lg font-semibold">Pinned frames</div>
-        <button
-          className={`rounded-lg px-2 py-1 font-semibold text-sm hover:opacity-80 ${editMode ? "bg-green-800 text-white" : "text-default"}`}
-          onClick={() => setEditMode((editMode) => !editMode)}>
-          {editMode ? "Done" : "Edit"}
-        </button>
-      </div>
+    <SidePanelContainer
+      panelKey="pinnedFrames"
+      title="Pinned frames"
+      editing={editMode}
+      onEditToggle={() => setEditMode((editMode) => !editMode)}>
       <div className="px-2 pt-3 pb-2 flex flex-col gap-2">
         {editMode && (
           <div className="pb-1">
@@ -186,9 +147,7 @@ const FramesContainer = ({ theme }: { theme: "dark" | "light" }) => {
           {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
             <button
               key={i}
-              className={`rounded-full w-10 h-10 flex items-center justify-center ${
-                i < urls.length ? "opacity-100" : "opacity-40"
-              } ${
+              className={`rounded-full w-10 h-10 flex items-center justify-center ${i < urls.length ? "opacity-100" : "opacity-40"} ${
                 i === activeIndex
                   ? "bg-action-primary text-white"
                   : "bg-white dark:bg-black text-default"
@@ -200,33 +159,6 @@ const FramesContainer = ({ theme }: { theme: "dark" | "light" }) => {
           ))}
         </div>
       </div>
-    </div>
-  )
-}
-
-export const render: PlasmoRender<any> = async (
-  { anchor, createRootContainer },
-  InlineCSUIContainer
-) => {
-  if (!anchor || !createRootContainer) {
-    return
-  }
-  const rootContainer = await createRootContainer(anchor)
-  const root = createRoot(rootContainer)
-
-  const rootContainerStyle = (rootContainer as HTMLElement).style
-  rootContainerStyle.zIndex = "0"
-
-  const theme = determineTheme(window)
-
-  const asideStyle = anchor.element.parentElement?.parentElement?.style
-  asideStyle?.setProperty("max-width", "420px")
-
-  root.render(
-    <InlineCSUIContainer anchor={anchor}>
-      <div className={`flex w-full ${theme}`} style={{ fontFamily: "Inter" }}>
-        <FramesContainer theme={theme} />
-      </div>
-    </InlineCSUIContainer>
+    </SidePanelContainer>
   )
 }

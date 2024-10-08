@@ -1,8 +1,8 @@
 {
   "name": "extension",
   "displayName": "Modcast",
-  "version": "0.0.1",
-  "description": "Enhances frames experience on warpcast.com",
+  "version": "0.0.2",
+  "description": "Enhances frames and mini apps experience on warpcast.com",
   "author": "dusoo.s+ds8@gmail.com",
   "scripts": {
     "dev": "plasmo dev",
@@ -12,13 +12,16 @@
   "dependencies": {
     "@frames.js/render": "^0.2.18",
     "@modcast/shared": "workspace:*",
+    "@noble/curves": "^1.6.0",
     "@noble/ed25519": "^2.0.0",
+    "@noble/hashes": "^1.5.0",
     "@plasmohq/messaging": "^0.6.2",
     "@plasmohq/storage": "^1.9.3",
     "@uidotdev/usehooks": "^2.4.1",
     "framer-motion": "^11.4.0",
     "frames.js": "^0.16.5",
-    "plasmo": "0.86.3",
+    "plasmo": "0.89.2",
+    "protobufjs": "^7.4.0",
     "qrcode.react": "^3.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"

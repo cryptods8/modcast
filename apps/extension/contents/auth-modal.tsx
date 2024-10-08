@@ -13,7 +13,8 @@ export const getStyle = () => {
 }
 
 export const config: PlasmoCSConfig = {
-  matches: ["https://warpcast.com/*"]
+  matches: ["https://warpcast.com/*"],
+  css: ["inter-font.css"]
 }
 
 interface AuthModalContainerProps extends React.PropsWithChildren {
@@ -32,7 +33,7 @@ const AuthModalContainer: React.FC<AuthModalContainerProps> = ({
     <div
       className={`fixed w-full h-full bg-gray-950/75 flex items-center justify-center transition ease-in-out duration-200 ${darkMode ? "dark" : "light"}`}
       onClick={onClick}
-      style={{ display: shown ? "flex" : "none" }}>
+      style={{ display: shown ? "flex" : "none", fontFamily: "Inter" }}>
       <div onClick={(e) => e.stopPropagation()}>{children}</div>
     </div>
   )

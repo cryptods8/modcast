@@ -1,11 +1,12 @@
 import type { PlasmoMessaging } from "@plasmohq/messaging"
 
+import { baseProxyUrl } from "~constants"
+
 const DEV_USER = process.env.PLASMO_PUBLIC_DEV_USER
 const isDevelopment = process.env.NODE_ENV === "development"
 
 const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
   // fake login for development
-  console.log("fetch", req.body)
   if (isDevelopment && DEV_USER) {
     if (
       req.body.url.startsWith(
@@ -21,7 +22,19 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
     }
   }
   try {
-    const resp = await fetch(req.body.url, req.body.options)
+    let url = req.body.url
+    let options = { ...(req.body.options || {}) }
+    if (req.body.proxy) {
+      url = `${baseProxyUrl}/api/v1/proxy?url=${encodeURIComponent(url)}`
+      options = {
+        ...options,
+        headers: {
+          ...options.headers,
+          "x-me-api-key": process.env.PLASMO_PUBLIC_PROXY_KEY
+        }
+      }
+    }
+    const resp = await fetch(url, options)
     if (!resp.ok) {
       return res.send({ status: resp.status, error: resp.statusText })
     }
@@ -31,7 +44,6 @@ const handler: PlasmoMessaging.MessageHandler = async (req, res) => {
       json = JSON.parse(text)
     } catch (e) {
       // ignore
-      console.log("fetch error", e)
     }
     return res.send({ json, text, status: resp.status })
   } catch (e) {

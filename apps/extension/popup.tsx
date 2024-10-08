@@ -1,10 +1,45 @@
 import { useFarcasterIdentity } from "~hooks/use-farcaster-identity"
 
 import "./style.css"
+import "~contents/inter-font.css"
+
+import { useStorage } from "@plasmohq/storage/hook"
 
 import { Button } from "~components/button"
+import { Checkbox } from "~components/checkbox"
 import { FarcasterAuthUI } from "~components/farcaster-auth-ui"
 import { ModcastIcon } from "~components/modcast-icon"
+
+function SettingsPanel() {
+  const [pinnedFramesEnabled, setPinnedFramesEnabled] = useStorage(
+    "pinnedFramesEnabled",
+    true
+  )
+  const [miniAppsEnabled, setMiniAppsEnabled] = useStorage(
+    "miniAppsEnabled",
+    true
+  )
+
+  return (
+    <div className="w-full flex flex-col gap-2">
+      <div className="text-xs font-semibold">Settings</div>
+      <div>
+        <div className="flex flex-col gap-2">
+          <Checkbox
+            checked={pinnedFramesEnabled}
+            onChange={() => setPinnedFramesEnabled(!pinnedFramesEnabled)}
+            label="Enable Pinned Frames"
+          />
+          <Checkbox
+            checked={miniAppsEnabled}
+            onChange={() => setMiniAppsEnabled(!miniAppsEnabled)}
+            label="Enable Mini Apps"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function IndexPopup() {
   const { signer, hasSigner, isLoadingSigner, logout, onSignerlessFramePress } =
@@ -19,7 +54,9 @@ export default function IndexPopup() {
   const showLoggedOutUi = !signer
 
   return (
-    <div className="p-4 flex flex-col justify-between items-center bg-gradient-to-r from-violet-100 to-purple-100 text-violet-950 min-w-96 text-base gap-7">
+    <div
+      className="p-4 flex flex-col justify-between items-center bg-gradient-to-r from-violet-100 to-purple-100 text-violet-950 min-w-96 text-base gap-7"
+      style={{ fontFamily: "Inter, sans-serif" }}>
       <div className="p-4 text-center flex flex-col gap-5">
         <div className="flex flex-col items-center">
           <div className="flex items-center h-10 w-10 mb-2">
@@ -41,6 +78,9 @@ export default function IndexPopup() {
           )
         )}
       </div>
+      <div className="text-slate-500 w-full px-6 py-4 mb-4 border-y border-slate-500/20">
+        <SettingsPanel />
+      </div>
       <div className="flex flex-col gap-5 items-center">
         {!shownAuthUi && (
           <div>
@@ -60,7 +100,7 @@ export default function IndexPopup() {
             rel="noopener noreferrer nofollow"
             className="underline hover:text-slate-700">
             frames.js
-          </a>{" "}
+          </a>
           {", "}
           <a
             href="https://openframes.xyz"

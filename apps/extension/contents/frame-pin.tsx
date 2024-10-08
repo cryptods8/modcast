@@ -200,7 +200,6 @@ export const render: PlasmoRender<any> = async (
     ? (linkElem as HTMLAnchorElement).href
     : window.location.href
 
-  console.log("tsel", timestampElem)
   const castType = timestampElem ? extractCastType(timestampElem) : null
 
   root.render(

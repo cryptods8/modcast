@@ -16,6 +16,9 @@
 .border-default {
   border-color: #d0d1d259;
 }
+.outline-default {
+  outline-color: #d0d1d259;
+}
 .bg-input {
   background-color: #fff;
 }
@@ -32,6 +35,9 @@
   }
   .border-default {
     border-color: #4c3a4ec0;
+  }
+  .outline-default {
+    outline-color: #4c3a4ec0;
   }
 }
 
