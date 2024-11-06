@@ -100,6 +100,31 @@ export function MiniAppContainer({
       .finally(() => setIsLoading(false))
   }, [signer?.privateKey, url])
 
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      const { data } = event
+      if (data?.type !== "createCast") {
+        return
+      }
+      const cast = data.data?.cast
+      if (!cast) {
+        return
+      }
+      const params = new URLSearchParams()
+      params.set("text", cast.text)
+      const embeds = cast.embeds || []
+      embeds.forEach((embed: string) => {
+        params.append("embeds[]", embed)
+      })
+      const url = `https://warpcast.com/~/compose?${params.toString()}`
+      window.open(url, "_blank")
+    }
+    window.addEventListener("message", handleMessage)
+    return () => {
+      window.removeEventListener("message", handleMessage)
+    }
+  }, [])
+
   const domainUrl = iframeData?.url ?? url
   const domain = domainUrl
     ? new URL(domainUrl).hostname.replace("www.", "")
