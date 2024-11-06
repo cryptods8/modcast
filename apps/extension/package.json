@@ -1,7 +1,7 @@
 {
   "name": "extension",
   "displayName": "Modcast",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Enhances frames and mini apps experience on warpcast.com",
   "author": "dusoo.s+ds8@gmail.com",
   "scripts": {

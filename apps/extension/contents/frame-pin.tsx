@@ -187,7 +187,7 @@ export const render: PlasmoRender<any> = async (
     anchor.element.parentElement?.parentElement?.parentElement?.parentElement
   const timestampElemSelectors = [
     ':scope > div > div > div > div:not([role="menuitem"]) > div:last-child',
-    ':scope > div.flex.flex-row.justify-between.gap-2 > div:not([role="menuitem"]) > a:last-of-type'
+    ":scope > div:first-child > div:first-child > div > a:last-of-type"
   ]
   const timestampElem = castElem?.querySelectorAll(
     timestampElemSelectors.join(",")
