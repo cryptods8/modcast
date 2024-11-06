@@ -1,7 +1,7 @@
 import { useStateStorage } from "./use-state-storage"
 
 export interface MiniApp {
-  aboutUrl: string
+  aboutUrl?: string
   description: string
   icon: string
   imageUrl: string

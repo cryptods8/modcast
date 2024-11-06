@@ -52,7 +52,7 @@ const MiniAppInput = ({ onSubmit }: { onSubmit: (value: string) => void }) => {
 
 function isValidMiniApp(miniApp?: MiniApp) {
   return (
-    miniApp && miniApp.aboutUrl && miniApp.name && miniApp.type === "composer"
+    miniApp && miniApp.imageUrl && miniApp.name && miniApp.type === "composer"
   )
 }
 
